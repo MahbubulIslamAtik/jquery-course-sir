@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="css">Bangladesh</div>
+    <span class="red">1</span>
+    <span class="red">2</span>
+    <span class="red">3</span>
+    <br/>
+    <span class="yellow">4</span>
+    <span class="yellow">5</span>
+    <span class="yellow">6</span>
+    <div id="output">
+
+    </div>
+    <button id="yellow">
+        yellow
+    </button>
+    <button id="red">
+        yellow
+    </button>
+    <script>
+        $(function(){
+            $("#css").css("color", "red");
+            $("#yellow").on("click", function(){
+                $(".yellow").css({'color':'yellow', 'font-size': '20px', 'font-weight':'bold', 'background-color':'lightgray'});
+            });
+
+            $("#red").on("click", function(){
+                $(".red").css({'color':'red', 'font-size': '20px', 'font-weight':'bold', 'background-color':'lightgray'});
+            });
+            
+        });
+    </script>
+</body>
+</html>

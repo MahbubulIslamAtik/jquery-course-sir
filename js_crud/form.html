@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../js/jquery-3.6.0.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="sms" style="border:1px solid gray;"></div>
+  <form name="f">
+    <div>
+      Name<br>
+      <input type="text" name="txtName" id="txtName" />
+    </div>
+    <div>
+      Age<br>
+      <input type="text" name="txtAge" id="txtAge" />
+    </div>
+    <div>
+      <input type="submit" name="btnSubmit" id="btnSubmit" value="Submit" />
+    </div>
+  </form>
+  <div id="table"></div>
+
+  <script>
+    $(function(){
+      let cid=0;
+      loadChild();
+      $("#btnSubmit").on("click", function(){
+        let command=$(this).val();
+        if(command=="Submit"){
+          let name=$("#txtName").val();
+          let age=$("#txtAge").val();
+
+          $.ajax({
+            url:'insert.php',
+            type:'POST',
+            data:{'txtName':name, 'txtAge':age, 'btnSubmit':'Submit'},
+            success:function(res){
+              $("#sms").html(res);
+              loadChild();
+            }
+          });
+        }else if(command=="Update"){
+          let name=$("#txtName").val();
+          let age=$("#txtAge").val();
+
+          $.ajax({
+            url:'update.php',
+            type:'GET',
+            data:{'txtId':cid, 'txtName':name, 'txtAge':age, 'btnSubmit': 'Submit'},
+            success:function(res){
+              $("#table").html(res);
+
+              $("#txtName").val("");
+              $("#txtAge").val("");
+              $("#btnSubmit").val("Submit");
+            }
+          });
+        }
+      });
+
+      $("body").on("click", ".delete", function(){
+        let id=$(this).data("id");
+        deleteChild(id);
+      });
+
+      $("body").on("click", ".edit", function(){
+        let id=$(this).data("id");
+        cid=id;
+
+        $.ajax({
+          url:'get_child.php',
+          type:'GET',
+          data:{'txtId':id},
+          success:function(res){
+            let data=JSON.parse(res);
+
+            $("#txtName").val(data.name);
+            $("#txtAge").val(data.age);
+            $("#btnSubmit").val("Update");
+          }
+        });
+
+      });
+
+      function loadChild(){
+        $.ajax({
+          url:'select.php',
+          type:'POST',
+          success:function(res){
+            $("#table").html(res);
+          }
+        });
+      }
+
+      function deleteChild(id){
+        $.ajax({
+          url:'delete.php',
+          type:'POST',
+          data:{'txtId':id},
+          success:function(res){
+            loadChild();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

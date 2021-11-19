@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="test" data-info="Bangladesh" title="This is text">Hello World</div>
+
+  <script>
+    $(function(){
+      // Write format
+      $("#test").attr("title", "New Value");
+      // Read formate
+      let x = $("#test").attr("data-info");
+      let y=$("#test").data("info");
+      alert(x);
+    });
+  </script>
+</body>
+</html>
